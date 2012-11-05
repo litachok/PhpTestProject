@@ -13,6 +13,8 @@
       // $document->printNodes();
        //// Hello Tony
        
+       //test inside
+       
        $document->addItem('LG','0.2','Notebook','A3');
        
         for($i=0;$i < $document->mSroreHouseSxml->count();$i++){
