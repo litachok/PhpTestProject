@@ -36,11 +36,10 @@
 		<category>Phones</category>
 		<location>A3</location>
 	</item>
-
-        <item id=".">
-            <name>.</name>
-            <weight>0</weight>
-            <category>.</category>
-            <location>.</location>
+        <item id="123123wqe">
+            <name>usb</name>
+            <weight>3</weight>
+            <category>A</category>
+            <location>C</location>
         </item>
 </storagehouse>
