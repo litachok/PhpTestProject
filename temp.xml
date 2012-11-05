@@ -38,4 +38,18 @@
 	</item>
 
 
+
+        <item id="b2b732188cf5b3fd0a669e2c2a5d7ec1">
+            <name>LG TV flat</name>
+            <weight>2.5</weight>
+            <category>TVs</category>
+            <location>D4</location>
+        </item>
+
+        <item id="b2b732188cf5b3fd0a669e2c2a5d7ec1">
+            <name>LG TV flat</name>
+            <weight>2.5</weight>
+            <category>TVs</category>
+            <location>D4</location>
+        </item>
 </storagehouse>

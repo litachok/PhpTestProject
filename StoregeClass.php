@@ -32,8 +32,6 @@ class Storege {
                   
         $this->mStoreHouseDOM->load($xmlsrc); 
         $this->validate($schemasrc);
-        ////////////////SimpleXML
-        $this->mSroreHouseSxml=simplexml_load_file($xmlsrc);
  
         
     }
@@ -44,16 +42,6 @@ class Storege {
         $this->mStoreHouseDOM->save($mStoresrc);        
     }
     function getItemN($index,$xpQuery){
-        
-        $itemArray=$this->mSroreHouseSxml->xpath($xpQuery);
-        $inId=$itemArray[$index]->attributes()->id;
-        $inName=$itemArray[$index]->name;
-        $inWeight=$itemArray[$index]->weight;
-        $inCategory=$itemArray[$index]->category;
-        $inLocation=$itemArray[$index]->location;
-      //  print_r($inLocation);
-        $this->setItem($inId,$inName, $inWeight, $inCategory, $inLocation);
-        
         
     }
   
@@ -79,7 +67,7 @@ class Storege {
         $weight= $item->appendChild(new DOMElement('weight',  $this->mStoreItem->getWeight()));
         $category=$item->appendChild(new DOMElement('category',  $this->mStoreItem->getCategory()));
         $location=$item->appendChild(new DOMElement('location',  $this->mStoreItem->getLocation()));
-
+        
                 ///append To DOM and save in to xml file
         $this->addItemToDOM($item);
         
@@ -140,39 +128,39 @@ class Storege {
          $root= $this->mStoreHouseDOM->documentElement->getElementsByTagName("item");
          
          $item= $root->item($index)->childNodes;
-         
-        $this->mStoreItem->setId($root->item($index)->getAttributeNode('id')->nodeValue);
-                print_r($root->item($index)->getAttributeNode('id')->nodeValue);
+         ////attr id='asdasdasdasd'
+         $inId=$root->item($index)->getAttributeNode('id')->nodeValue;
+         $this->mStoreItem->setId($inId);
+         /*
+                <name> </name>
+		<weight> </weight>
+		<category> </category>
+		<location> </location>
+         */
          foreach ($item as $node)
          {
-            switch ($node->nodeType) {
-                case XML_ELEMENT_NODE:
-                
-                if ($node->nodeName == "name") {
-                    $this->mStoreItem->setName($node->nodeValue);
-                }
-                elseif ($node->nodeName == "weight") {
-                    $this->mStoreItem->setWeight($node->nodeValue);
-                }
-                elseif ($node->nodeName == "category") {
-                    $this->mStoreItem->setCategory($node->nodeValue);
-                }
-                elseif ($node->nodeName == "location") {
-                    $this->mStoreItem->setLocation($node->nodeValue);
-                }
-            case XML_ATTRIBUTE_NODE:
-            if ($node->nodeName == "id") {
-                $this->mStoreItem->setId($node->nodeValue);
-                print_r($node->nodeValue);
-                
-            }
-            break;
-            }
-         } 
-         
+            
+                if ($node->nodeType == XML_ELEMENT_NODE)
+                {
+                     if ($node->nodeName == "name") 
+                     {
+                         $this->mStoreItem->setName($node->nodeValue);
+                     }
+                     elseif ($node->nodeName == "weight") 
+                     {
+                         $this->mStoreItem->setWeight($node->nodeValue);
+                     }
+                     elseif ($node->nodeName == "category") 
+                     {
+                         $this->mStoreItem->setCategory($node->nodeValue);
+                     }
+                    elseif ($node->nodeName == "location") 
+                     {
+                         $this->mStoreItem->setLocation($node->nodeValue);
+                     }           
+               }
+         }     
      }
-     
-
 }
 
 

@@ -14,7 +14,7 @@
        //$document->setItem('123123wqe', 'usb', 3, 'A', "C");
       // $document->setDomEl();
 
-       $document->getItemDOM(7);
+       $document->getItemDOM(3);
        $document->setDomEl();
 
 
