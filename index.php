@@ -11,7 +11,7 @@
        $document= new Storege();
        $document->open('./storage.xml','./schema.xsd');
       // $document->printNodes();
-       
+       //// Hello Tony
        
        $document->addItem('LG','0.2','Notebook','A3');
        
