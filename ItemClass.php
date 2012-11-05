@@ -20,11 +20,11 @@ class Item {
 
 
     function __construct() {
-        $this->mName="";
-        $this->mLocation="";
+        $this->mName=".";
+        $this->mLocation=".";
         $this->mWeight=0.0;
-        $this->mCategory="";
-        $this->mId="";
+        $this->mCategory=".";
+        $this->mId=".";
     }
     function setId($inId){
         $this->mId=$inId;    

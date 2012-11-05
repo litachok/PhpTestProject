@@ -17,11 +17,13 @@ class Storege {
     protected $mSchemasrc;
     protected $mStoreItem;
     public $mSroreHouseSxml;
+    protected $mDomElement;
 
 
     function __construct(){
         $this->mStoreHouseDOM=new DOMDocument();// В конструктор
         $this->mStoreItem= new Item();/// В конструктор
+    //    $this->mDomElement=
         /////////SimpleXML
       //  $this->mSroreHouseSxml= new SimpleXMLElement();
         
@@ -114,20 +116,80 @@ class Storege {
         $root=new SimpleXMLElement("<storagehouse></storagehouse>");
         $rand='fdgs';
         $root->item['id']=$rand;
-        $child= $root->item->addChild('name',$aName);
-        $child= $root->item->addChild('weight',$aWeight);
-        $child= $root->item->addChild('category',$aCategory);
-        $child= $root->item->addChild('location',$aLocation);
+        $root->item->addChild('name',$aName);
+        $root->item->addChild('weight',$aWeight);
+        $root->item->addChild('category',$aCategory);
+        $root->item->addChild('location',$aLocation);
         
-        $this->mSroreHouseSxml->addChild($root->asXML());
+        /////////////////////////////////////////////////
+        $items=new SimpleXMLElement("<storagehouse></storagehouse>");
         
-        echo htmlentities($root->asXML());
-        echo htmlentities($this->mSroreHouseSxml->asXML());
+        
+        
+        
+        
+        
+        //////////////////////////////////////////////////
+        
+        $items->addChild($root->item->asXML());
+      //  $items->addChild($root->item->asXML());
+      //  $root->item->appendChild("node2", "content");
+        echo htmlentities($items->asXML('./tempDS.xml'));
+        
+        
+        
+        //$root->item->appendChild("node2", "content");
+        
+       // echo htmlentities($this->mSroreHouseSxml->asXML());
    
         }
-}
+      
+        function addItemToDOM(){
+       
+            $root= $this->mStoreHouseDOM->documentElement;
+          //add Attribute 
+          $item=  $this->mStoreHouseDOM->createElement('item');
+          $attr= $this->mStoreHouseDOM->createAttribute('id');
+          $attr->nodeValue=  $this->mStoreItem->getId();
+          $item->setAttributeNode($attr);
+          //add Element
+          $name= $item->appendChild(new DOMElement('name',  $this->mStoreItem->getName()));
+          $weight= $item->appendChild(new DOMElement('weight',  $this->mStoreItem->getWeight()));
+          $category=$item->appendChild(new DOMElement('category',  $this->mStoreItem->getCategory()));
+          $location=$item->appendChild(new DOMElement('location',  $this->mStoreItem->getLocation()));
+          
+
+            $root->appendChild($item);
+            
+            
+            //Save to file
+            $this->mStoreHouseDOM->save("temp.xml");
+          
+        }
+        
+        function newDomitem($oldnode){
+            $rand='hellllllllllllp';
+            $inweight= 5;
+            $item= new DOMElement('item','id',$rand);
+            $name= new DOMElement('name',"USB");
+            $weight= new DOMElement('weight',$inweight);
+           // $item->appendChild($name);
+           // $item->appendChild($weight);
+          //  $this->mStoreHouseDOM->replaceChild($item, $oldnode);
+          
+            
+            $this->mStoreHouseDOM->save("temp.xml");
+            
+        }
+        
+        
+        
+        
+        
+
  
 
+}
 
 
 ?>
