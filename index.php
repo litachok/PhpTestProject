@@ -9,11 +9,13 @@
         
         include'StoregeClass.php';
        $document= new Storege();
-       $document->open('./storage.xml','./schema.xsd');
+       $document->open('./temp.xml','./schema.xsd');
    //    $document->addItem('usb', 3, 'A', "C");
-       $document->setItem('123123wqe', 'usb', 3, 'A', "C");
-       $document->setDomEl();
+       //$document->setItem('123123wqe', 'usb', 3, 'A', "C");
+      // $document->setDomEl();
 
+       $document->getItemDOM(7);
+       $document->setDomEl();
 
 
 

@@ -134,7 +134,44 @@ class Storege {
             $this->mStoreHouseDOM->save("temp.xml");
           
      }
-
+  
+     function getItemDOM($index){
+         
+         $root= $this->mStoreHouseDOM->documentElement->getElementsByTagName("item");
+         
+         $item= $root->item($index)->childNodes;
+         
+        $this->mStoreItem->setId($root->item($index)->getAttributeNode('id')->nodeValue);
+                print_r($root->item($index)->getAttributeNode('id')->nodeValue);
+         foreach ($item as $node)
+         {
+            switch ($node->nodeType) {
+                case XML_ELEMENT_NODE:
+                
+                if ($node->nodeName == "name") {
+                    $this->mStoreItem->setName($node->nodeValue);
+                }
+                elseif ($node->nodeName == "weight") {
+                    $this->mStoreItem->setWeight($node->nodeValue);
+                }
+                elseif ($node->nodeName == "category") {
+                    $this->mStoreItem->setCategory($node->nodeValue);
+                }
+                elseif ($node->nodeName == "location") {
+                    $this->mStoreItem->setLocation($node->nodeValue);
+                }
+            case XML_ATTRIBUTE_NODE:
+            if ($node->nodeName == "id") {
+                $this->mStoreItem->setId($node->nodeValue);
+                print_r($node->nodeValue);
+                
+            }
+            break;
+            }
+         } 
+         
+     }
+     
 
 }
 
