@@ -24,58 +24,10 @@
         }
         
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-     /*   $xml = new DOMDocument(); 
-        $xml->load('./storage.xml');
-        $xsdpath = new DOMXPath($xml);
-        
-        $productxp=$xsdpath->query("item")->item(0);
-        print_r($productxp);
-        
-        
-       */ 
-        
-        
-      /*  if ($xml->schemaValidate("./schema.xsd")){
-            
-            echo "validate<p/>" ;
-        //    $root=$xml->documentElement;
-           // $type=$root->nodeName;
-             /////////XPath/////////////////////////////////
-     //       $XPxml = simplexml_load_file("./storage.xml");
-            //$product= new SimpleXMLElement();
-     //       $products = $XPxml->xpath("item");
-           // $product=$products[0];
-        //    print_r($products[0]->attributes()->id);
-          //  print_r($products[0]->name.'<br/>');
-            //print_r($products[0]);
-         ///////////////////////////////////////////////// 
-            
-            
-       
-          //////////DOM///////////////////////////////////  
-             
-        }  else {
-        echo "Unvalidate <p/>";    
-        }
+
      
         
-*/
-     
+
         ?>
     </body>
 </html>
