@@ -23,7 +23,7 @@ class Storege {
     function __construct()
     {
         $this->mStoreHouseDOM=new DOMDocument();// В конструктор
-        $this->mStoreItem= new Item();/// В конструктор
+      //  $this->mStoreItem= new Item($this->mStoreHouseDOM);/// В конструктор
    }
     function open($xmlsrc, $schemasrc)
     {
@@ -41,40 +41,16 @@ class Storege {
     {
         $this->mStoreHouseDOM->save($mStoresrc);        
     }
-    function getItemN($index,$xpQuery){
-        
-    }
+   
   
     //Set Storege Item propertise
-    function setItem($inId,$inName,$inWeight,$inCategory,$inLocation)
-    {
-   
-        $this->mStoreItem->setId($inId);
-        $this->mStoreItem->setName($inName);
-        $this->mStoreItem->setWeight($inWeight);
-        $this->mStoreItem->setCategory($inCategory);
-        $this->mStoreItem->setLocation($inLocation);  
+    function setItem1($inId,$inName,$inWeight,$inCategory,$inLocation)
+    {   $this->mStoreItem= new Item($this->mStoreHouseDOM);
+        $this->mStoreItem->setItem($inId, $inName, $inWeight, $inCategory, $inLocation);
+        
+          
     }
-    function setDomEl()
-    {
-                 ///attr
-        $item=  $this->mStoreHouseDOM->createElement('item');
-        $attr= $this->mStoreHouseDOM->createAttribute('id');
-        $attr->nodeValue=  $this->mStoreItem->getId();
-        $item->setAttributeNode($attr);
-                //add Element
-        $name= $item->appendChild(new DOMElement('name',  $this->mStoreItem->getName()));
-        $weight= $item->appendChild(new DOMElement('weight',  $this->mStoreItem->getWeight()));
-        $category=$item->appendChild(new DOMElement('category',  $this->mStoreItem->getCategory()));
-        $location=$item->appendChild(new DOMElement('location',  $this->mStoreItem->getLocation()));
-        
-                ///append To DOM and save in to xml file
-        $this->addItemToDOM($item);
-        
-        
-        
-        
-     }
+    
     //validate XML Schema check;
     function validate($schema)
     {  
@@ -82,6 +58,8 @@ class Storege {
             return print 'valid';
         else   return print 'UnValid';
     }
+    
+   /* print all nodes on xml tree
     function printNodes()
     {    
          $itemaar=  $this->mStoreHouseDOM->getElementsByTagName('item');
@@ -102,64 +80,61 @@ class Storege {
                     }              
                 }
     }
+    * 
+    */
     
     
-    function printItem()
-    {    
-        $this->mStoreItem->printItem();
-        
-    }
+   
        
-     function addItemToDOM($inDomEl)
+     function addItemToDOM()
     {
-       
             $root= $this->mStoreHouseDOM->documentElement;
-          //add Attribute 
-        
-            $root->appendChild($inDomEl);
-             
+            $root->appendChild($this->mStoreItem->getDomEl());
+            
             //Save to file
-            $this->mStoreHouseDOM->save("temp.xml");
+            $this->mStoreHouseDOM->save("./temp1.xml");
           
      }
   
      function getItemDOM($index){
          
          $root= $this->mStoreHouseDOM->documentElement->getElementsByTagName("item");
-         
          $item= $root->item($index)->childNodes;
-         ////attr id='asdasdasdasd'
-         $inId=$root->item($index)->getAttributeNode('id')->nodeValue;
-         $this->mStoreItem->setId($inId);
+         
+            //attr id='asdasdasdasd'
+         $id=$root->item($index)->getAttributeNode('id')->nodeValue;
+         
          /*
                 <name> </name>
 		<weight> </weight>
 		<category> </category>
 		<location> </location>
-         */
+         
+          * 
+          */
          foreach ($item as $node)
-         {
-            
+         {  
                 if ($node->nodeType == XML_ELEMENT_NODE)
                 {
                      if ($node->nodeName == "name") 
                      {
-                         $this->mStoreItem->setName($node->nodeValue);
+                         $name=$node->nodeValue;
                      }
                      elseif ($node->nodeName == "weight") 
                      {
-                         $this->mStoreItem->setWeight($node->nodeValue);
+                         $weight=$node->nodeValue;
                      }
                      elseif ($node->nodeName == "category") 
                      {
-                         $this->mStoreItem->setCategory($node->nodeValue);
+                         $category=$node->nodeValue;
                      }
                     elseif ($node->nodeName == "location") 
                      {
-                         $this->mStoreItem->setLocation($node->nodeValue);
+                         $location=$node->nodeValue;
                      }           
                }
-         }     
+         }
+         $this->setItem1($id,$name,$weight,$category,$location);
      }
 }
 

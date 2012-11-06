@@ -17,63 +17,58 @@ class Item {
     protected $mCategory;
     protected $mLocation;
     protected $mId;
+    protected $mDomEl;
+    protected $mIdAttr;
 
 
-    function __construct() {
-        $this->mName=".";
-        $this->mLocation=".";
-        $this->mWeight=0.0;
-        $this->mCategory=".";
-        $this->mId=".";
-    }
-    function setId($inId){
-        $this->mId=$inId;    
-    }
-    function getId(){
-        return $this->mId;
-    }
 
 
-    function setName($sName)
-    {        
-        $this->mName=$sName;
-    }
-    function getName() 
-    {
-        return $this->mName;
-    }
-    function setWeight($fWeight)
-    {
-        $this->mWeight=$fWeight;
-    }
-    function getWeight()
-    {
-        return $this->mWeight;
-    }
-    function setCategory($sCategory)
-    {
-        $this->mCategory=$sCategory;
-    }
-    function getCategory()
-    {
-        return $this->mCategory;
-    }
-    function setLocation($enLocation)
-    {
-        $this->mLocation=$enLocation;
-    }
-    function getLocation()
-    {
-        return $this->mLocation;
-    }
-   
-    function printItem(){
+    function __construct($inDOM) {
+     
+        $this->mName= new DOMElement('name',  '.');
+        $this->mWeight= new DOMElement('weight',  0.0);
+        $this->mCategory=new DOMElement('category','.');
+        $this->mLocation=new DOMElement('location',  '.');
+       
+        //DOMElement
+        $this->mDomEl=$inDOM->createElement('item');
+        //Id Attr
+        $this->mIdAttr= $inDOM->createAttribute('id');
+        $this->mIdAttr->nodeValue='.';
         
-        print '<br/>'.$this->mId.'<br/>'.$this->mName.'<br/>'.$this->mWeight.'<br/>'.$this->mCategory.'<br/>'.$this->mLocation.'<br/>';
-        
-        
+        $this->newItem();
+      
+                
+    }
+    function getDomEl(){
+       
+        return $this->mDomEl;
+    }
+    function setItem($inId,$inName,$inWeight,$inCategory,$inLocation){
+        $this->mIdAttr->nodeValue=$inId;
+        $this->mName->nodeValue=$inName;
+        $this->mWeight->nodeValue=$inWeight;
+        $this->mCategory->nodeValue=$inCategory;
+        $this->mLocation->nodeValue=$inLocation;
     }
     
+    function newItem(){
+        
+        $this->mDomEl->setAttributeNode($this->mIdAttr);
+        $this->mDomEl->appendChild($this->mName);
+        $this->mDomEl->appendChild($this->mWeight);
+        $this->mDomEl->appendChild($this->mCategory);
+        $this->mDomEl->appendChild($this->mLocation);
+    }
+
+    function remove($inDOM){
+        
+        
+        
+    }
+
+
+   
 }
 
 ?>
