@@ -23,24 +23,19 @@ class Storege {
     {
         $this->mStoreHouseDOM=new DOMDocument();// В конструктор
         $this->open($xmlsrc);
-        $this->validate($schemasrc);
-        //
-      //  $this->mStoreItem= new Item($this->mStoreHouseDOM);/// В конструктор
+        $this->validate('./Storage/'.$schemasrc);      
    }
     function open($xmlsrc)
     {
-       // $this->mSchemasrc=$schemasrc;
         $this->mStoresrc=$xmlsrc;             
-        $this->mStoreHouseDOM->load($xmlsrc); 
-     //   $this->validate($schemasrc);
-     
+        $this->mStoreHouseDOM->load('./Storage/'.$xmlsrc);  
     }
     
     //Save curent DOMDocument in to file
     function save()
     {
-    //   $this->mStoreHouseDOM->save($mStoresrc); 
-        $this->mStoreHouseDOM->save('./tempStora.xml'); 
+    //   $this->mStoreHouseDOM->save('./Storage/'.$mStoresrc); 
+        $this->mStoreHouseDOM->save('./Storage/'.'./tempStora.xml'); //temp
     }
      //validate XML Schema check;
     function validate($schema)
@@ -54,11 +49,13 @@ class Storege {
     function setItem1($inId,$inName,$inWeight,$inCategory,$inLocation)
     {   
         $this->mStoreItem= new Item($this->mStoreHouseDOM);
-        $this->mStoreItem->setItem($inId, $inName, $inWeight, $inCategory, $inLocation);  
+        $this->mStoreItem->multiSetItem($inId, $inName, $inWeight, $inCategory, $inLocation);  
     }
+    
      function setItem($inDomEl)
     {   $this->mStoreItem= new Item($this->mStoreHouseDOM);
-        $this->mStoreItem->setDomEl($inDomEl);  
+       // $this->mStoreItem->setDomEl($inDomEl);
+       $this->mStoreItem->multiSetItem($inDomEl);
     }
    
     //append curent Item to DOM

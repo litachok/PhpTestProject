@@ -37,4 +37,10 @@
 		<category>Phones</category>
 		<location>A3</location>
 	</item>
+	<item id="bcbb46488c3a070834bd85ddca5487a1">
+		<name>MacBook Pro 13"</name>
+		<weight>2</weight>
+		<category>Notebooks</category>
+		<location>B2</location>
+	</item>
 </storagehouse>

@@ -14,7 +14,7 @@ class Item {
     
     protected $mName;
     protected $mWeight;
-    public $mCategory;
+    protected $mCategory;
     protected $mLocation;
     protected $mId;
     protected $mDomEl;
@@ -48,29 +48,62 @@ class Item {
        
         return $this->mDomEl;
     }
-    function setItem($inId,$inName,$inWeight,$inCategory,$inLocation)
+    
+    function multiSetItem()
     {
-        $this->mIdAttr->nodeValue=$inId;
-        $this->mName->nodeValue=$inName;
-        $this->mWeight->nodeValue=$inWeight;
-        $this->mCategory->nodeValue=$inCategory;
-        $this->mLocation->nodeValue=$inLocation;
+        if(func_num_args() == 1)///if input DOMElement
+            {
+               $args = func_get_args();
+               $inDomEl = $args[0];        
+               $this->mDomEl=$inDomEl;
+               
+               
+               $inId = $inDomEl->getAttributeNode('id')->nodeValue ;
+               $elNodes=$this->mDomEl->childNodes;
+               foreach ($elNodes as $node)
+                  {
+                   switch ($node->nodeName) 
+                   {
+                       case 'name':
+                           $inName=$node->nodeValue;
+
+                           break;
+                       case 'weight':
+                           $inWeight=$node->nodeValue;
+
+                           break;
+                       case 'category':
+                           $inCategory=$node->nodeValue;
+
+                           break;
+                       case 'location':
+                           $inLocation=$node->nodeValue;
+
+                           break;
+                   }  
+                 }
+              
+                          
+         }elseif (func_num_args() == 5) // if list of properties value
+             {
+               $args = func_get_args();
+               $inId = $args[0];
+               $inName = $args[1];
+               $inWeight = $args[2];
+               $inCategory = $args[3];
+               $inLocation = $args[4];                                      
+             }
+             
+               $this->mIdAttr->nodeValue=$inId;
+               $this->mName->nodeValue=$inName;
+               $this->mWeight->nodeValue=$inWeight;
+               $this->mCategory->nodeValue=$inCategory;
+               $this->mLocation->nodeValue=$inLocation;  
+             
+             
     }
-    function setDomEl($inDomEl)
-    {
-        $this->mDomEl=$inDomEl;   
-    }
-    function newItem()
-    {    
-        $this->mDomEl->setAttributeNode($this->mIdAttr);
-        $this->mDomEl->appendChild($this->mName);
-        $this->mDomEl->appendChild($this->mWeight);
-        $this->mDomEl->appendChild($this->mCategory);
-        $this->mDomEl->appendChild($this->mLocation);
-    }
-    
-    
-    
+   
+    // modifies the current Item (<Tag>,value); 
     function modItem($proper,$value)
     {
         
@@ -105,52 +138,12 @@ class Item {
                      
                 }
                 break;
-
             default:
                 break;
       }
-        
-        
-        
-        
-        
     }
     
-   /*
-    function modDomEl($inId,$inName,$inWeight,$inCategory,$inLocation)
-    {   
-        
-        
-        $AttrNode=  $this->mDomEl->getAttributeNode('id');
-        $AttrNode->nodeValue=$inId;
-        
-        $DomNodes=$this->mDomEl->childNodes;
-         foreach ($DomNodes as $node)
-	 {  
-            if($node->nodeType != XML_TEXT_NODE)
-                switch ($node->nodeName) 
-                {                                                  
-                    case 'name': 
-                        $node->nodeValue=$inName;
-                    break;
-                    case 'weight':
-                        $node->nodeValue=$inWeight;
-                    break;
-                    case 'category':
-                        $node->nodeValue=$inCategory;
-                    case 'location':
-                        $node->nodeValue=$inLocation;
-                    break;    
-                 
-                }              
-	  	
-               
-        
-     
-         }
-    }     
-    */
-    
+   
     //remove curent
     function remove()
     {
@@ -158,6 +151,16 @@ class Item {
         $root->removeChild($this->mDomEl);
     }
 
+    
+    protected function newItem()
+    {    
+        $this->mDomEl->setAttributeNode($this->mIdAttr);
+        $this->mDomEl->appendChild($this->mName);
+        $this->mDomEl->appendChild($this->mWeight);
+        $this->mDomEl->appendChild($this->mCategory);
+        $this->mDomEl->appendChild($this->mLocation);
+    }
+    
 
    
 }
