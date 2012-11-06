@@ -41,14 +41,12 @@ class Storege {
     {
         $this->mStoreHouseDOM->save($mStoresrc);        
     }
-   
-  
+ 
     //Set Storege Item propertise
     function setItem1($inId,$inName,$inWeight,$inCategory,$inLocation)
-    {   $this->mStoreItem= new Item($this->mStoreHouseDOM);
-        $this->mStoreItem->setItem($inId, $inName, $inWeight, $inCategory, $inLocation);
-        
-          
+    {   
+        $this->mStoreItem= new Item($this->mStoreHouseDOM);
+        $this->mStoreItem->setItem($inId, $inName, $inWeight, $inCategory, $inLocation);  
     }
     
     //validate XML Schema check;
@@ -58,33 +56,6 @@ class Storege {
             return print 'valid';
         else   return print 'UnValid';
     }
-    
-   /* print all nodes on xml tree
-    function printNodes()
-    {    
-         $itemaar=  $this->mStoreHouseDOM->getElementsByTagName('item');
-            foreach ($itemaar as $node)
-                {
-                if($node->nodeType != XML_TEXT_NODE)
-                    {
-                    $children=$node->childNodes;
-                  //  print_r($node);
-                    foreach ($children as $child)
-                        {
-                        if($child->nodeType != XML_TEXT_NODE)
-                            {
-                             print $child->nodeName."<br/>";
-                             print $child->nodeValue.'<br/>';
-                            }
-                        }
-                    }              
-                }
-    }
-    * 
-    */
-    
-    
-   
        
      function addItemToDOM()
     {
@@ -92,7 +63,7 @@ class Storege {
             $root->appendChild($this->mStoreItem->getDomEl());
             
             //Save to file
-            $this->mStoreHouseDOM->save("./temp1.xml");
+          
           
      }
   
