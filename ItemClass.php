@@ -70,13 +70,17 @@ class Item {
     
     function modDomEl($inId,$inName,$inWeight,$inCategory,$inLocation)
     {   
+        
+        
+        $AttrNode=  $this->mDomEl->getAttributeNode('id');
+        $AttrNode->nodeValue=$inId;
+        
         $DomNodes=$this->mDomEl->childNodes;
          foreach ($DomNodes as $node)
 	 {  
             if($node->nodeType != XML_TEXT_NODE)
                 switch ($node->nodeName) 
-                {                                  
-                
+                {                                                  
                     case 'name': 
                         $node->nodeValue=$inName;
                     break;
