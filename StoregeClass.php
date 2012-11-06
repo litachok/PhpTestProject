@@ -15,6 +15,7 @@ class Storege {
     public $mStoreHouseDOM;
     protected $mStoresrc;
     protected $mSchemasrc;
+    protected $mStoraPath;
     public $mStoreItem;
     protected $mDomElement;
 
@@ -22,20 +23,20 @@ class Storege {
     function __construct($xmlsrc, $schemasrc)
     {
         $this->mStoreHouseDOM=new DOMDocument();// В конструктор
+        $this->mStoraPath='./Storage/';
         $this->open($xmlsrc);
-        $this->validate('./Storage/'.$schemasrc);      
+        $this->validate($this->mStoraPath.$schemasrc);      
    }
     function open($xmlsrc)
     {
         $this->mStoresrc=$xmlsrc;             
-        $this->mStoreHouseDOM->load('./Storage/'.$xmlsrc);  
+        $this->mStoreHouseDOM->load($this->mStoraPath.$xmlsrc);  
     }
-    
     //Save curent DOMDocument in to file
     function save()
     {
-    //   $this->mStoreHouseDOM->save('./Storage/'.$mStoresrc); 
-        $this->mStoreHouseDOM->save('./Storage/'.'./tempStora.xml'); //temp
+       $this->mStoreHouseDOM->save($this->mStoraPath.$this->mStoresrc); 
+        //$this->mStoreHouseDOM->save('./Storage/'.'./tempStora.xml'); //temp
     }
      //validate XML Schema check;
     function validate($schema)
@@ -44,7 +45,6 @@ class Storege {
             return print 'valid';
         else   return print 'UnValid';
     }
- 
     //Set Storege Item propertise
     function setItem1($inId,$inName,$inWeight,$inCategory,$inLocation)
     {   
@@ -57,7 +57,6 @@ class Storege {
        // $this->mStoreItem->setDomEl($inDomEl);
        $this->mStoreItem->multiSetItem($inDomEl);
     }
-   
     //append curent Item to DOM
      function addItemToDOM()
      {
@@ -65,29 +64,18 @@ class Storege {
             $curItemDEl=$this->mStoreItem->getDomEl();
             $root->appendChild($curItemDEl);         
      }
-  
-     
      //set curent Item by index
      function getItemElbyIndex($index)
      {
          $root= $this->mStoreHouseDOM->documentElement->getElementsByTagName("item");
          $newItem=$root->item($index);
          $this->setItem($newItem);
-         
-         //return $root->item($index);
     }
-    
-    
-    
     //remove curent Item
     function removeItem()
     {      
         $this->mStoreItem->remove();    
-    }
-   
-     
-    
-    
+    }   
 }
 
 

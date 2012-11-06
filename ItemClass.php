@@ -99,14 +99,12 @@ class Item {
                $this->mWeight->nodeValue=$inWeight;
                $this->mCategory->nodeValue=$inCategory;
                $this->mLocation->nodeValue=$inLocation;  
-             
-             
+                       
     }
    
     // modifies the current Item (<Tag>,value); 
     function modItem($proper,$value)
-    {
-        
+    {        
         if($proper=='id'){
             $AttrNode=$this->mDomEl->getAttributeNode('id');
             $AttrNode->nodeValue=$value;
@@ -138,19 +136,14 @@ class Item {
                      
                 }
                 break;
-            default:
-                break;
       }
-    }
-    
-   
+    }    
     //remove curent
     function remove()
     {
         $root = $this->mDOMdoc->documentElement;    
         $root->removeChild($this->mDomEl);
     }
-
     
     protected function newItem()
     {    
@@ -159,10 +152,7 @@ class Item {
         $this->mDomEl->appendChild($this->mWeight);
         $this->mDomEl->appendChild($this->mCategory);
         $this->mDomEl->appendChild($this->mLocation);
-    }
-    
-
-   
+    }   
 }
 
 
