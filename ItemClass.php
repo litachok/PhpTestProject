@@ -42,6 +42,7 @@ class Item {
       
                 
     }
+    //return DOMElement  which Item represent
     function getDomEl()
     {
        
@@ -68,6 +69,54 @@ class Item {
         $this->mDomEl->appendChild($this->mLocation);
     }
     
+    
+    
+    function modItem($proper,$value)
+    {
+        
+        if($proper=='id'){
+            $AttrNode=$this->mDomEl->getAttributeNode('id');
+            $AttrNode->nodeValue=$value;
+        }
+        
+        $elNodes=$this->mDomEl->childNodes;
+        switch ($proper) {            
+            case 'name':
+            foreach ($elNodes as $node)
+                if($node->nodeName=='name')
+                    $node->nodeValue=$value;
+                break;
+            case 'weight':
+             foreach ($elNodes as $node)
+                if($node->nodeName=='weight')
+                    $node->nodeValue=$value;
+
+                break;
+            case 'category':
+            foreach ($elNodes as $node)
+                if($node->nodeName=='category')
+                    $node->nodeValue=$value;
+
+                break;
+            case 'location':
+            foreach ($elNodes as $node)
+                if($node->nodeName=='location'){
+                    $node->nodeValue=$value;
+                     
+                }
+                break;
+
+            default:
+                break;
+      }
+        
+        
+        
+        
+        
+    }
+    
+   /*
     function modDomEl($inId,$inName,$inWeight,$inCategory,$inLocation)
     {   
         
@@ -100,6 +149,9 @@ class Item {
      
          }
     }     
+    */
+    
+    //remove curent
     function remove()
     {
         $root = $this->mDOMdoc->documentElement;    
@@ -109,5 +161,6 @@ class Item {
 
    
 }
+
 
 ?>

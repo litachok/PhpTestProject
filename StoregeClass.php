@@ -39,7 +39,7 @@ class Storege {
     //Save curent DOMDocument in to file
     function save()
     {
-    //    $this->mStoreHouseDOM->save($mStoresrc); 
+    //   $this->mStoreHouseDOM->save($mStoresrc); 
         $this->mStoreHouseDOM->save('./tempStora.xml'); 
     }
      //validate XML Schema check;
@@ -60,7 +60,8 @@ class Storege {
     {   $this->mStoreItem= new Item($this->mStoreHouseDOM);
         $this->mStoreItem->setDomEl($inDomEl);  
     }
-        
+   
+    //append curent Item to DOM
      function addItemToDOM()
      {
             $root= $this->mStoreHouseDOM->documentElement;
@@ -68,6 +69,8 @@ class Storege {
             $root->appendChild($curItemDEl);         
      }
   
+     
+     //set curent Item by index
      function getItemElbyIndex($index)
      {
          $root= $this->mStoreHouseDOM->documentElement->getElementsByTagName("item");
@@ -76,18 +79,15 @@ class Storege {
          
          //return $root->item($index);
     }
+    
+    
+    
+    //remove curent Item
     function removeItem()
     {      
         $this->mStoreItem->remove();    
     }
    
-    /*  function removeItembyIndex($index)
-    {   $doc=$this->mStoreHouseDOM;
-        $this->setItem($this->getItemElbyIndex($index));    
-        $this->mStoreItem->remove();    
-    }
-   * 
-   */
      
     
     
