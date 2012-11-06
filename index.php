@@ -14,14 +14,20 @@
        //$document->setItem('123123wqe', 'usb', 3, 'A', "C");
       // $document->setDomEl();
 
-       $document->setItem1('helpppppppp', 'usb', 3, 'A', "C");
+     ///  $document->setItem1('helpppppppp', 'usb', 3, 'A', "C");
+       ///$document->addItemToDOM();
+       ///$document->setItem1('lllllllllllll', 'usb', 3, 'A', "C");
+       ///$document->addItemToDOM();
+       //$document->setItem1('3333333333', 'usb', 3, 'A', "C");
+       //$document->addItemToDOM();
+       //$document->getItemDOM(3);
+       ///$document->addItemToDOM();
+      // $document->removeItem(4);
+      // $document->save();
+       $document->validate('./schema.xsd');
+       $document->setItem($document->getItemElbyIndex(3));
        $document->addItemToDOM();
-       $document->setItem1('lllllllllllll', 'usb', 3, 'A', "C");
-       $document->addItemToDOM();
-       $document->setItem1('3333333333', 'usb', 3, 'A', "C");
-       $document->addItemToDOM();
-       $document->getItemDOM(4);
-       $document->addItemToDOM();
+       $document->save();
        
 
 

@@ -51,7 +51,13 @@ class Item {
         $this->mCategory->nodeValue=$inCategory;
         $this->mLocation->nodeValue=$inLocation;
     }
-    
+    function setDomEl($inDomEl){
+        
+        
+        $this->mDomEl=$inDomEl;
+        
+        
+    }
     function newItem(){
         
         $this->mDomEl->setAttributeNode($this->mIdAttr);
@@ -61,8 +67,10 @@ class Item {
         $this->mDomEl->appendChild($this->mLocation);
     }
 
-    function remove($inDOM){
+    function remove($inDOM,$inElRemove){
+        $root = $inDOM->documentElement;
         
+        $root->removeChild($inElRemove);
         
         
     }

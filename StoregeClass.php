@@ -39,7 +39,15 @@ class Storege {
     //Save curent DOMDocument in to file
     function save()
     {
-        $this->mStoreHouseDOM->save($mStoresrc);        
+    //    $this->mStoreHouseDOM->save($mStoresrc); 
+        $this->mStoreHouseDOM->save('./tempStora.xml'); 
+    }
+     //validate XML Schema check;
+    function validate($schema)
+    {  
+        if($this->mStoreHouseDOM->schemaValidate($schema))
+            return print 'valid';
+        else   return print 'UnValid';
     }
  
     //Set Storege Item propertise
@@ -48,65 +56,28 @@ class Storege {
         $this->mStoreItem= new Item($this->mStoreHouseDOM);
         $this->mStoreItem->setItem($inId, $inName, $inWeight, $inCategory, $inLocation);  
     }
-    
-    //validate XML Schema check;
-    function validate($schema)
-    {  
-        if($this->mStoreHouseDOM->schemaValidate($schema))
-            return print 'valid';
-        else   return print 'UnValid';
+     function setItem($inDomEl)
+    {   $this->mStoreItem= new Item($this->mStoreHouseDOM);
+        $this->mStoreItem->setDomEl($inDomEl);  
     }
-       
+        
      function addItemToDOM()
-    {
+     {
             $root= $this->mStoreHouseDOM->documentElement;
-            $root->appendChild($this->mStoreItem->getDomEl());
-            
-            //Save to file
-          
-          
+            $root->appendChild($this->mStoreItem->getDomEl());         
      }
   
-     function getItemDOM($index){
-         
+     function getItemElbyIndex($index)
+     {
          $root= $this->mStoreHouseDOM->documentElement->getElementsByTagName("item");
-         $item= $root->item($index)->childNodes;
-         
-            //attr id='asdasdasdasd'
-         $id=$root->item($index)->getAttributeNode('id')->nodeValue;
-         
-         /*
-                <name> </name>
-		<weight> </weight>
-		<category> </category>
-		<location> </location>
-         
-          * 
-          */
-         foreach ($item as $node)
-         {  
-                if ($node->nodeType == XML_ELEMENT_NODE)
-                {
-                     if ($node->nodeName == "name") 
-                     {
-                         $name=$node->nodeValue;
-                     }
-                     elseif ($node->nodeName == "weight") 
-                     {
-                         $weight=$node->nodeValue;
-                     }
-                     elseif ($node->nodeName == "category") 
-                     {
-                         $category=$node->nodeValue;
-                     }
-                    elseif ($node->nodeName == "location") 
-                     {
-                         $location=$node->nodeValue;
-                     }           
-               }
-         }
-         $this->setItem1($id,$name,$weight,$category,$location);
-     }
+         return $root->item($index);
+    }
+    function removeItembyIndex($index)
+    {   $doc=$this->mStoreHouseDOM;
+        $node=$this->getItemElbyIndex($index);    
+        $this->mStoreItem->remove($doc, $node);    
+    }
+    
 }
 
 
