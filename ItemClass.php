@@ -20,6 +20,12 @@ class Item {
     protected $mDomEl;
     protected $mIdAttr;
     protected $mDOMdoc;
+     
+    public $inId; 
+    public $inName; 
+    public $inWeight; 
+    public $inCategory;
+    public $inLocation;
 
 
 
@@ -56,8 +62,7 @@ class Item {
                $args = func_get_args();
                $inDomEl = $args[0];        
                $this->mDomEl=$inDomEl;
-               
-               
+                             
                $inId = $inDomEl->getAttributeNode('id')->nodeValue ;
                $elNodes=$this->mDomEl->childNodes;
                foreach ($elNodes as $node)
@@ -66,7 +71,7 @@ class Item {
                    {
                        case 'name':
                            $inName=$node->nodeValue;
-
+                        //   print $node->nodeValue;
                            break;
                        case 'weight':
                            $inWeight=$node->nodeValue;
@@ -99,6 +104,14 @@ class Item {
                $this->mWeight->nodeValue=$inWeight;
                $this->mCategory->nodeValue=$inCategory;
                $this->mLocation->nodeValue=$inLocation;  
+               
+               
+              
+                $this->inId = $inId;
+                $this->inName = $inName;
+                $this->inWeight = $inWeight;
+                $this->inCategory = $inCategory;
+                $this->inLocation = $inLocation;
                        
     }
    

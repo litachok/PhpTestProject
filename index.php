@@ -1,67 +1,61 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title></title>
-    </head>
-    <body>
-        <?php
+ <html>
+   <?php
         
         include'StoregeClass.php';
-       $document= new Storege('storage.xml','schema.xsd');
        
+       $document= new Storege('./storage.xml','./schema.xsd');
    //    $document->addItem('usb', 3, 'A', "C");
-       //$document->setItem('123123wqe', 'usb', 3, 'A', "C");
-      // $document->setDomEl();
-
-     ///  $document->setItem1('helpppppppp', 'usb', 3, 'A', "C");
-       ///$document->addItemToDOM();
-       ///$document->setItem1('lllllllllllll', 'usb', 3, 'A', "C");
-       ///$document->addItemToDOM();
-       //$document->setItem1('3333333333', 'usb', 3, 'A', "C");
-       //$document->addItemToDOM();
-       //$document->getItemDOM(3);
-       ///$document->addItemToDOM();
-      // $document->removeItem(4);
-      // $document->save();
-       //$document->validate('./schema.xsd');
-     //  $document->setItem($document->getItemElbyIndex(3)); 
-      // $document->addItemToDOM();
-      // $document->removeItembyIndex(0);
-      
-       $document->getItemElbyIndex(3);
-       $document->removeItem();
-       $document->setItem1('3333333333', 'usb', 3, 'A', "C");
-       $document->addItemToDOM();
-       
-       //$document->mStoreItem->mCategory->nodeValue='C3';
-      // $document->mStoreItem->modDomEl( 'usb', 3, 'A', "C");
+    //   $document->setItem('123123wqe', 'usb', 3, 'A', "C1");
+    //   $document->setDomEl();
+ 
+  //     $stylexslt = new XSLTProcessor();
+    //   $stylexsl = new DOMDocument();
+     //  $stylexsl ->load("style/style.xsl");
+      // $stylexslt ->importStylesheet($stylexsl);
+      // print $stylexslt->transformToXml($document->mStoreHouseDOM);
+	//$document->getItemElbyIndex(0);	
+        //$document->mStoreItem->inName; 
+        
+        //$document->setItem1('12313','name',3 , "b", 'd3');
        
       
-      $document->save();
-       
-
-
-
-
-// $document->printNodes();
-       //// Hello Tony
-       ///// New branche
-       //test inside
-       
-     //  $document->addItem('LG','0.2','Notebook','A3');
-       
-      //  for($i=0;$i < $document->mSroreHouseSxml->count();$i++){
-       // $document->getItemN($i, 'item');
-        //$document->printItem();
-        
-       // }
-        
-        
-
-     
-        
-
-        ?>
-    </body>
+       $document->getItemElbyIndex(0);
+      //  print $document->mStoreItem->inName;
+       // print $document->mStoreItem->inWeight;
+        ?>  
+   <head>
+   <link rel="stylesheet" href="style.css" type="text/css">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>Index Page</title>
+    </head>
+    <body>
+    <h1><?php echo $document->mStoreHouseDOM->documentElement->nodeName ?></h1>
+    <table class="gridtable">
+      <tr>
+          	<th>Modify</th>
+            <th>Name</th>
+            <th>Weight</th>
+            <th>Category</th>
+            <th>Location</th>
+      </tr>
+      <form name="index" action="modify.php" method="post">
+	  <?php for ($index=0; $index<$document->length; $index+=1){$document->getItemElbyIndex($index); ?>
+           <tr>
+            <td><?php echo '<a href="modify.php?index='.$index.'" target="new">+</a>'; ?> </td>
+            <td><?php echo $document->mStoreItem->inName;?></td>
+            <td><?php echo $document->mStoreItem->inWeight;?></td>
+            <td><?php echo $document->mStoreItem->inCategory; ?></td>
+            <td><?php echo $document->mStoreItem->inLocation ?></td>
+           </tr> 
+	    <?php }
+		?>
+    </table>
+    
+    <br>
+   <?php  echo '<a href="modify.php?index='.$index.'" target="new">Add new</a> ' ?>
+   
+   <a href="index.php" target="_self">Refresh</a>
+ 
+ </body>
 </html>

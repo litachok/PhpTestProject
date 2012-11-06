@@ -18,6 +18,7 @@ class Storege {
     protected $mStoraPath;
     public $mStoreItem;
     protected $mDomElement;
+    public  $length;
 
 
     function __construct($xmlsrc, $schemasrc)
@@ -25,7 +26,10 @@ class Storege {
         $this->mStoreHouseDOM=new DOMDocument();// В конструктор
         $this->mStoraPath='./Storage/';
         $this->open($xmlsrc);
-        $this->validate($this->mStoraPath.$schemasrc);      
+        $this->validate($this->mStoraPath.$schemasrc);
+        $nodelist=$this->mStoreHouseDOM->getElementsByTagName('item');
+        $this->length=$nodelist->length;
+        
    }
     function open($xmlsrc)
     {
@@ -66,7 +70,7 @@ class Storege {
      }
      //set curent Item by index
      function getItemElbyIndex($index)
-     {
+     {  
          $root= $this->mStoreHouseDOM->documentElement->getElementsByTagName("item");
          $newItem=$root->item($index);
          $this->setItem($newItem);
