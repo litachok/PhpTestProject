@@ -8,8 +8,8 @@
         <?php
         
         include'StoregeClass.php';
-       $document= new Storege();
-       $document->open('./storage.xml','./schema.xsd');
+       $document= new Storege('./storage.xml','./schema.xsd');
+       
    //    $document->addItem('usb', 3, 'A', "C");
        //$document->setItem('123123wqe', 'usb', 3, 'A', "C");
       // $document->setDomEl();
@@ -24,10 +24,17 @@
        ///$document->addItemToDOM();
       // $document->removeItem(4);
       // $document->save();
-       $document->validate('./schema.xsd');
-       $document->setItem($document->getItemElbyIndex(3));
-       $document->addItemToDOM();
-       $document->save();
+       //$document->validate('./schema.xsd');
+     //  $document->setItem($document->getItemElbyIndex(3)); 
+      // $document->addItemToDOM();
+      // $document->removeItembyIndex(0);
+      
+       $document->getItemElbyIndex(1);
+       //$document->mStoreItem->mCategory->nodeValue='C3';
+       $document->mStoreItem->modDomEl( 'usb', 3, 'A', "C");
+       
+      
+      $document->save();
        
 
 

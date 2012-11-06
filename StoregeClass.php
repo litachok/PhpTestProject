@@ -15,25 +15,25 @@ class Storege {
     public $mStoreHouseDOM;
     protected $mStoresrc;
     protected $mSchemasrc;
-    protected $mStoreItem;
-    public $mSroreHouseSxml;
+    public $mStoreItem;
     protected $mDomElement;
 
 
-    function __construct()
+    function __construct($xmlsrc, $schemasrc)
     {
         $this->mStoreHouseDOM=new DOMDocument();// В конструктор
+        $this->open($xmlsrc);
+        $this->validate($schemasrc);
+        //
       //  $this->mStoreItem= new Item($this->mStoreHouseDOM);/// В конструктор
    }
-    function open($xmlsrc, $schemasrc)
+    function open($xmlsrc)
     {
-        $this->mSchemasrc=$schemasrc;
-        $this->mStoresrc=$xmlsrc;
-                  
+       // $this->mSchemasrc=$schemasrc;
+        $this->mStoresrc=$xmlsrc;             
         $this->mStoreHouseDOM->load($xmlsrc); 
-        $this->validate($schemasrc);
- 
-        
+     //   $this->validate($schemasrc);
+     
     }
     
     //Save curent DOMDocument in to file
@@ -64,19 +64,32 @@ class Storege {
      function addItemToDOM()
      {
             $root= $this->mStoreHouseDOM->documentElement;
-            $root->appendChild($this->mStoreItem->getDomEl());         
+            $curItemDEl=$this->mStoreItem->getDomEl();
+            $root->appendChild($curItemDEl);         
      }
   
      function getItemElbyIndex($index)
      {
          $root= $this->mStoreHouseDOM->documentElement->getElementsByTagName("item");
-         return $root->item($index);
+         $newItem=$root->item($index);
+         $this->setItem($newItem);
+         
+         //return $root->item($index);
     }
-    function removeItembyIndex($index)
+    function removeItem()
+    {      
+        $this->mStoreItem->remove();    
+    }
+   
+    /*  function removeItembyIndex($index)
     {   $doc=$this->mStoreHouseDOM;
-        $node=$this->getItemElbyIndex($index);    
-        $this->mStoreItem->remove($doc, $node);    
+        $this->setItem($this->getItemElbyIndex($index));    
+        $this->mStoreItem->remove();    
     }
+   * 
+   */
+     
+    
     
 }
 
